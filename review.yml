@@ -1,0 +1,124 @@
+aid: dacast
+name: Dacast
+review:
+  question: Does Dacast expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Dacast's public developer API
+    (developer.dacast.com/v2) is request/response REST over HTTPS,
+    authenticated with an X-Api-Key header. Dacast's real-time surface is live
+    video INGEST and DELIVERY, not a message API: broadcasters push with RTMP
+    (and SRT) to Dacast ingest, and viewers pull HLS/DASH segments through the
+    HTML5 player. RTMP/SRT ingest and HLS delivery are streaming media
+    transports, not a WebSocket (ws://, wss://) message API, and there is no
+    documented server-push WebSocket or SSE endpoint on Dacast's own API to
+    model.
+findings:
+  summary: |
+    Dacast does not publish a documented public WebSocket API. Dacast is a live
+    streaming and video hosting (OTT) platform. Its public developer API is a
+    RESTful JSON API at https://developer.dacast.com/v2, authenticated with an
+    X-Api-Key header (plus an X-Format header on some calls), covering live
+    channels, VOD, playlists, and analytics. Every documented operation is
+    request/response REST over HTTPS. Dacast's real-time video is carried by
+    RTMP/SRT ingest and HLS/DASH delivery to the player - media streaming
+    protocols, not a WebSocket message API. No ws:// or wss:// endpoint is
+    documented anywhere in Dacast's developer docs.
+  accessModel: |
+    The API is plan-gated, not open self-serve. API access is included only on
+    the Scale plan and Custom (enterprise) plans; the entry Starter and Event
+    plans do not include API access. Trial accounts can request temporary API
+    access from Dacast sales for evaluation. API keys are generated in the
+    Dacast dashboard under Settings > Integrations and passed as the X-Api-Key
+    header.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://developer.dacast.com/v2
+      documented: true
+      note: Live channels, VOD, playlists, analytics. X-Api-Key header auth. Plan-gated (Scale/Custom).
+    - protocol: RTMP
+      scheme: rtmp
+      documented: true
+      note: Live stream ingest (broadcaster push to Dacast). Media transport, not a WebSocket message API.
+    - protocol: SRT
+      scheme: srt
+      documented: true
+      note: Alternate low-latency live ingest. Media transport, not a WebSocket.
+    - protocol: HLS
+      scheme: https
+      documented: true
+      note: Segment-based delivery to the HTML5 player. Media transport, not a WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Dacast's developer docs as of the review date.
+  endpointsConfirmedRest:
+    - POST https://developer.dacast.com/v2/vod
+    - POST https://developer.dacast.com/v2/channel
+    - POST https://developer.dacast.com/v2/playlist
+    - GET  https://developer.dacast.com/v2/playlist/{playlistId}
+  endpointsModeled:
+    - GET    https://developer.dacast.com/v2/vod
+    - GET    https://developer.dacast.com/v2/vod/{videoId}
+    - DELETE https://developer.dacast.com/v2/vod/{videoId}
+    - DELETE https://developer.dacast.com/v2/vod/{videoId}/rendition/{renditionId}
+    - POST   https://developer.dacast.com/v2/vod/upload/multipart
+    - GET    https://developer.dacast.com/v2/channel
+    - GET    https://developer.dacast.com/v2/channel/{channelId}
+    - GET    https://developer.dacast.com/v2/channel/online
+    - PUT    https://developer.dacast.com/v2/channel/{channelId}/ingest
+    - PUT    https://developer.dacast.com/v2/channel/{channelId}/type
+    - GET    https://developer.dacast.com/v2/channel/{channelId}/simulcast
+    - POST   https://developer.dacast.com/v2/channel/{channelId}/simulcast
+    - DELETE https://developer.dacast.com/v2/channel/{channelId}/simulcast/{destinationId}
+    - PUT    https://developer.dacast.com/v2/playlist/{playlistId}
+    - GET    https://developer.dacast.com/v2/analytics
+  modeledNote: |
+    Dacast documents these capabilities (list/lookup/delete VOD, multi-part and
+    bulk upload, list/switch/change live channels, simulcast destinations, set
+    playlist content, and analytics export) but publishes exact paths and verbs
+    only for a few operations. The endpointsModeled list is an honest REST
+    modeling of those documented capabilities; verify exact paths against the
+    developer portal (docs.dacast.com, docs.dacast.com/llms.txt) before use.
+sources:
+  - url: https://docs.dacast.com/docs/make-your-first-api-call
+    type: Documentation
+    note: Base host developer.dacast.com, v2, X-Api-Key + X-Format headers, POST /v2/channel example. All REST.
+  - url: https://docs.dacast.com/docs/api-versioning
+    type: Documentation
+    note: v2 versioning; points AI agents to docs.dacast.com/llms.txt OpenAPI index.
+  - url: https://docs.dacast.com/docs/obtain-api-keys
+    type: Documentation
+    note: API access gated to Scale and Custom plans; trials request temporary access from sales.
+  - url: https://docs.dacast.com/docs/vod-upload
+    type: APIReference
+    note: POST /v2/vod upload signature; multi-part and bulk upload flows.
+  - url: https://docs.dacast.com/docs/playlists
+    type: APIReference
+    note: POST /v2/playlist, GET /v2/playlist/{playlistId}, replace-in-place content set.
+  - url: https://docs.dacast.com/docs/create-live-streams-channels
+    type: APIReference
+    note: POST /v2/channel and live channel operations. RTMP/SRT ingest, not WebSocket.
+  - url: https://docs.dacast.com/llms.txt
+    type: Documentation
+    note: Machine-readable endpoint index (live streams, simulcast, VOD, playlists, bulk, config).
+  - url: https://www.dacast.com/live-streaming-pricing-plans/
+    type: Pricing
+    note: Starter / Event / Scale / Custom plans; bandwidth+storage metering; overages.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on Dacast's own API. Dacast's public
+    API is request/response REST (developer.dacast.com/v2), and its real-time
+    behavior is live video ingest (RTMP/SRT) and delivery (HLS/DASH) - media
+    streaming transports, not a server-push WebSocket message API. No AsyncAPI
+    document was created because there is no WebSocket or SSE transport on
+    Dacast's own API to model.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

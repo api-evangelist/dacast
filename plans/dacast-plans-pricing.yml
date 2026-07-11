@@ -1,0 +1,212 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Dacast
+providerId: dacast
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: true
+tags:
+- Live Streaming
+- Video
+- VOD
+- OTT
+- Plans
+- Pricing
+description: >-
+  Dacast sells subscription streaming plans metered on bandwidth and storage,
+  with unlimited concurrent viewers on every tier. API access is NOT included on
+  the entry tiers - it is gated to the Scale plan and Custom (enterprise) plans;
+  trial accounts can request temporary API access from Dacast sales. Prices below
+  are the published monthly-equivalent rates when billed annually.
+notes: >-
+  Published plan prices as listed on the Dacast live streaming pricing page.
+  Bandwidth/storage allotments and overage rates change; verify on the pricing
+  page during reconciliation. The Scale plan is also offered month-to-month at a
+  higher rate (~$250/mo) than the annual monthly-equivalent.
+sources:
+- https://www.dacast.com/live-streaming-pricing-plans/
+- https://docs.dacast.com/docs/obtain-api-keys
+- https://calculator.dacast.com/
+plans:
+- id: dacast-starter
+  name: Starter
+  type: subscription
+  description: >-
+    Entry plan for basic live streaming and VOD. No API access.
+  entries:
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $39/mo billed annually ($468/yr)
+    userMultiplied: false
+  - label: Included Bandwidth
+    name: bandwidth
+    type: included
+    metric: bandwidth
+    limit: 2400
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: 2.4 TB/yr included
+    userMultiplied: false
+  - label: Included Storage
+    name: storage
+    type: included
+    metric: storage
+    limit: 500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 500 GB included
+    userMultiplied: false
+  elements:
+  - name: Live Streaming
+  - name: Video Hosting (VOD)
+  - name: HTML5 Player
+  - name: Unlimited Concurrent Viewers
+- id: dacast-event
+  name: Event
+  type: subscription
+  description: >-
+    Front-loaded bandwidth plan for one-off events with advanced live features.
+    No API access.
+  entries:
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $63/mo billed annually ($750/yr)
+    userMultiplied: false
+  - label: Included Bandwidth
+    name: bandwidth
+    type: included
+    metric: bandwidth
+    limit: 6000
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: 6 TB upfront included
+    userMultiplied: false
+  - label: Included Storage
+    name: storage
+    type: included
+    metric: storage
+    limit: 250
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 250 GB included
+    userMultiplied: false
+  elements:
+  - name: Advanced Live Features
+  - name: Live Streaming
+  - name: Video Hosting (VOD)
+  - name: Unlimited Concurrent Viewers
+- id: dacast-scale
+  name: Scale
+  type: subscription
+  description: >-
+    Highest self-serve tier - unlimited channels and team members. This is the
+    lowest tier that INCLUDES API access.
+  entries:
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $165/mo billed annually ($1,980/yr); ~$250/mo month-to-month
+    userMultiplied: false
+  - label: Included Bandwidth
+    name: bandwidth
+    type: included
+    metric: bandwidth
+    limit: 24000
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: 24 TB/yr included
+    userMultiplied: false
+  - label: Included Storage
+    name: storage
+    type: included
+    metric: storage
+    limit: 2000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 2,000 GB included
+    userMultiplied: false
+  elements:
+  - name: API Access
+  - name: Unlimited Channels
+  - name: Unlimited Team Members
+  - name: Live Streaming
+  - name: Video Hosting (VOD)
+  - name: Unlimited Concurrent Viewers
+- id: dacast-custom
+  name: Custom
+  type: enterprise
+  description: >-
+    Negotiated enterprise plan with custom bandwidth and storage. Includes API
+    access and custom terms. Contact Dacast sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: API Access
+  - name: Custom Bandwidth
+  - name: Custom Storage
+  - name: Priority Support
+- id: dacast-overages
+  name: Overages
+  type: usage
+  description: >-
+    Metered charges applied when bandwidth or storage exceed the plan allotment.
+  entries:
+  - label: Overage Bandwidth
+    name: overage_bandwidth
+    type: usage
+    metric: bandwidth
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.30 per GB (pre-paid extra data as low as $0.09/GB)
+    userMultiplied: false
+  - label: Overage Storage
+    name: overage_storage
+    type: usage
+    metric: storage
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.15 per GB per month
+    userMultiplied: false
+  elements:
+  - name: Bandwidth Overage
+  - name: Storage Overage
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

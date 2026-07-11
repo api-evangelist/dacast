@@ -1,0 +1,58 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Dacast
+providerId: dacast
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Live Streaming
+- Video
+- VOD
+- OTT
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Dacast does not publish explicit numeric API rate limits in its public
+  developer documentation. Access is gated by plan (Scale and Custom), and the
+  practical ceilings on a Dacast account are the plan's bandwidth and storage
+  allotments plus overage pricing rather than a documented requests-per-minute
+  quota on the REST API. Values below are placeholders pending reconciliation
+  against the developer portal or a live account.
+notes: >-
+  No requests-per-minute / per-day figures are published on docs.dacast.com as of
+  the review date. Treat the API as subject to standard fair-use throttling and
+  implement backoff. Reconcile with the developer portal or Dacast support if
+  hard limits are needed.
+sources:
+- https://docs.dacast.com/docs/make-your-first-api-call
+- https://docs.dacast.com/docs/obtain-api-keys
+- https://www.dacast.com/live-streaming-pricing-plans/
+responseCodes:
+  throttled: 429
+limits:
+- name: Requests Per Minute (RPM)
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No documented per-account RPM ceiling; assume fair-use throttling.
+- name: Bandwidth Allotment
+  scope: account
+  metric: bandwidth
+  limit: per plan (2.4 TB / 6 TB / 24 TB per year)
+  notes: Practical delivery ceiling; overages billed per GB.
+- name: Storage Allotment
+  scope: account
+  metric: storage
+  limit: per plan (500 GB / 250 GB / 2,000 GB)
+  notes: Practical storage ceiling; overages billed per GB per month.
+policies:
+- name: Plan Gating
+  description: API access is restricted to Scale and Custom plans; trial accounts must request temporary access from sales.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor 429 responses / Retry-After if returned.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
