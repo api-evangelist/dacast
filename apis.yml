@@ -108,6 +108,10 @@ apis:
     exact endpoint paths and query parameters are not published; the operations here
     are honestly modeled and flagged as unconfirmed.
 common:
+- type: DomainSecurity
+  url: security/dacast-domain-security.yml
+- type: Authentication
+  url: authentication/dacast-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/dacast
 - type: Website
