@@ -108,6 +108,8 @@ apis:
     exact endpoint paths and query parameters are not published; the operations here
     are honestly modeled and flagged as unconfirmed.
 common:
+- type: AgenticAccess
+  url: agentic-access/dacast-agentic-access.yml
 - type: DomainSecurity
   url: security/dacast-domain-security.yml
 - type: Authentication
