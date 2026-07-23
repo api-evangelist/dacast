@@ -1,0 +1,176 @@
+openapi: 3.0.1
+info:
+  title: Dacast Analytics Live Channels API
+  description: 'RESTful JSON API for the Dacast live streaming and video hosting (OTT) platform. Covers live channels, video on demand (VOD), playlists, and viewer analytics. Authentication uses an X-Api-Key request header. API access is gated to Scale and Custom plans (trial accounts can request temporary access from Dacast sales).
+
+    Grounding note: the base host (https://developer.dacast.com), the v2 versioning, X-Api-Key auth, and the operations POST /v2/vod, POST /v2/channel, POST /v2/playlist, and GET /v2/playlist/{playlistId} are confirmed from Dacast''s public developer docs (docs.dacast.com). Operations marked "x-modeled: true" are honestly modeled REST shapes for capabilities Dacast documents but whose exact paths, verbs, or parameters are not published; verify against the developer portal before use.'
+  version: '2.0'
+  contact:
+    name: Dacast Support
+    url: https://www.dacast.com/support/
+  termsOfService: https://www.dacast.com/terms-conditions/
+servers:
+- url: https://developer.dacast.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: Live Channels
+  description: Live streaming channels and simulcast.
+paths:
+  /v2/channel:
+    post:
+      operationId: createChannel
+      tags:
+      - Live Channels
+      summary: Create a live channel
+      description: Create a live streaming channel. Confirmed from "Make Your First API Call" - requires X-Api-Key and X-Format headers and a JSON body with title, description, region, and rendition count.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                region:
+                  type: string
+                renditionCount:
+                  type: integer
+      responses:
+        '200':
+          description: Channel created.
+    get:
+      operationId: listChannels
+      tags:
+      - Live Channels
+      summary: List live channels
+      description: List live streaming channels in the account.
+      x-modeled: true
+      responses:
+        '200':
+          description: A list of channels.
+  /v2/channel/{channelId}:
+    get:
+      operationId: lookupStream
+      tags:
+      - Live Channels
+      summary: Look up a stream
+      description: Retrieve a live channel and its stream configuration.
+      x-modeled: true
+      parameters:
+      - name: channelId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Channel details.
+  /v2/channel/{channelId}/ingest:
+    put:
+      operationId: switchStreamIngest
+      tags:
+      - Live Channels
+      summary: Switch stream ingest
+      description: Switch the ingest configuration for a live channel.
+      x-modeled: true
+      parameters:
+      - name: channelId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ingest switched.
+  /v2/channel/{channelId}/type:
+    put:
+      operationId: changeChannelType
+      tags:
+      - Live Channels
+      summary: Change channel type
+      description: Change the type of a live channel.
+      x-modeled: true
+      parameters:
+      - name: channelId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Channel type changed.
+  /v2/channel/online:
+    get:
+      operationId: listOnlineStreams
+      tags:
+      - Live Channels
+      summary: List online streams
+      description: List channels that are currently live.
+      x-modeled: true
+      responses:
+        '200':
+          description: Online streams.
+  /v2/channel/{channelId}/simulcast:
+    get:
+      operationId: listSimulcastDestinations
+      tags:
+      - Live Channels
+      summary: List simulcast destinations
+      description: List restream/simulcast destinations for a channel.
+      x-modeled: true
+      parameters:
+      - name: channelId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Simulcast destinations.
+    post:
+      operationId: addSimulcastDestination
+      tags:
+      - Live Channels
+      summary: Add a simulcast destination
+      description: Add a restream/simulcast destination to a channel.
+      x-modeled: true
+      parameters:
+      - name: channelId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Destination added.
+  /v2/channel/{channelId}/simulcast/{destinationId}:
+    delete:
+      operationId: deleteSimulcastDestination
+      tags:
+      - Live Channels
+      summary: Delete a simulcast destination
+      x-modeled: true
+      parameters:
+      - name: channelId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: destinationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted.
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key

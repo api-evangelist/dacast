@@ -1,0 +1,89 @@
+openapi: 3.0.1
+info:
+  title: Dacast Analytics Playlists API
+  description: 'RESTful JSON API for the Dacast live streaming and video hosting (OTT) platform. Covers live channels, video on demand (VOD), playlists, and viewer analytics. Authentication uses an X-Api-Key request header. API access is gated to Scale and Custom plans (trial accounts can request temporary access from Dacast sales).
+
+    Grounding note: the base host (https://developer.dacast.com), the v2 versioning, X-Api-Key auth, and the operations POST /v2/vod, POST /v2/channel, POST /v2/playlist, and GET /v2/playlist/{playlistId} are confirmed from Dacast''s public developer docs (docs.dacast.com). Operations marked "x-modeled: true" are honestly modeled REST shapes for capabilities Dacast documents but whose exact paths, verbs, or parameters are not published; verify against the developer portal before use.'
+  version: '2.0'
+  contact:
+    name: Dacast Support
+    url: https://www.dacast.com/support/
+  termsOfService: https://www.dacast.com/terms-conditions/
+servers:
+- url: https://developer.dacast.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: Playlists
+  description: Ordered collections of VOD and live content.
+paths:
+  /v2/playlist:
+    post:
+      operationId: createPlaylist
+      tags:
+      - Playlists
+      summary: Create a playlist
+      description: Create a playlist with title and description. Confirmed from the Playlists guide.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Playlist created.
+  /v2/playlist/{playlistId}:
+    get:
+      operationId: getPlaylist
+      tags:
+      - Playlists
+      summary: Get a playlist
+      description: Retrieve a playlist and its contents. Confirmed from the Playlists guide.
+      parameters:
+      - name: playlistId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Playlist details.
+    put:
+      operationId: setPlaylistContent
+      tags:
+      - Playlists
+      summary: Set playlist content
+      description: Replace-in-place update of a playlist's ordered contents. The full content array (VOD and live channel items) must be submitted. Documented behavior; exact verb/path modeled.
+      x-modeled: true
+      parameters:
+      - name: playlistId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contents:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        '200':
+          description: Playlist content set.
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
