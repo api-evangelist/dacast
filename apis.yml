@@ -12,7 +12,20 @@ description: Dacast is a unified live streaming and video hosting (OTT) platform
   from sales), so the endpoints below are grounded in Dacast's public developer docs
   but several exact paths beyond the confirmed /v2/channel, /v2/vod, and /v2/playlist
   are honestly modeled.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dacast.png
 tags:
 - Live Streaming
 - Video
@@ -25,88 +38,86 @@ created: '2026-07-11'
 modified: '2026-07-11'
 specificationVersion: '0.19'
 apis:
-- aid: dacast:dacast-vod-api
-  name: Dacast VOD API
-  tags:
-  - VOD
-  - Video
-  - Upload
-  - Content Management
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.dacast.com/docs/vod-upload
-  baseURL: https://developer.dacast.com/v2
-  properties:
-  - url: https://docs.dacast.com/docs/make-your-first-api-call
-    type: Documentation
-  - url: https://docs.dacast.com/docs/vod-upload
-    type: APIReference
-  - url: openapi/dacast-openapi.yml
-    type: OpenAPI
-  description: Create, list, look up, and delete video-on-demand assets, and upload
-    source files. Uploads work by requesting a signed upload target (POST /v2/vod)
-    and pushing the file to Dacast storage, with multi-part upload and bulk upload
-    flows for large libraries. Exact list/lookup/delete paths beyond the confirmed
-    upload-signature endpoint are modeled from the developer docs.
-- aid: dacast:dacast-live-channels-api
-  name: Dacast Live Channels API
-  tags:
-  - Live Streaming
-  - Channels
-  - Simulcast
-  - RTMP
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.dacast.com/docs/create-live-streams-channels
-  baseURL: https://developer.dacast.com/v2
-  properties:
-  - url: https://docs.dacast.com/docs/create-live-streams-channels
-    type: APIReference
-  - url: openapi/dacast-openapi.yml
-    type: OpenAPI
-  description: Create and manage live streaming channels (POST /v2/channel), look up
-    a stream, list online streams, switch stream ingest, change channel type, and
-    manage simulcast destinations that restream to third-party targets. Ingest is
-    RTMP/SRT push, not a Dacast-hosted API transport. Channel creation is confirmed;
-    the remaining operation paths are modeled from the developer docs.
-- aid: dacast:dacast-playlists-api
-  name: Dacast Playlists API
-  tags:
-  - Playlists
-  - Content Organization
-  - VOD
-  - Live Streaming
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.dacast.com/docs/playlists
-  baseURL: https://developer.dacast.com/v2
-  properties:
-  - url: https://docs.dacast.com/docs/playlists
-    type: APIReference
-  - url: openapi/dacast-openapi.yml
-    type: OpenAPI
-  description: Create playlists (POST /v2/playlist), retrieve a playlist
-    (GET /v2/playlist/{playlistId}), and set playlist contents by mixing VOD and
-    live channel items. Playlist updates are a replace-in-place operation - the full
-    content array is submitted on each change. Create and get are confirmed; the
-    set-content and delete paths are modeled from the developer docs.
 - aid: dacast:dacast-analytics-api
   name: Dacast Analytics API
+  description: Viewer analytics and reporting.
+  humanURL: https://docs.dacast.com/docs/vod-upload
+  baseURL: https://developer.dacast.com/v2
   tags:
   - Analytics
-  - Viewership
-  - Reporting
-  - Metrics
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.dacast.com/support/knowledgebase/walkthrough-to-per-content-video-analytics-on-dacast/
-  baseURL: https://developer.dacast.com/v2
   properties:
-  - url: https://www.dacast.com/support/knowledgebase/new-analytics-dashboard/
-    type: Documentation
-  - url: openapi/dacast-openapi.yml
-    type: OpenAPI
-  description: Read raw viewer analytics - views, watch time, bandwidth, and geography
-    per content item and per account - so you can build custom reporting on top of
-    Dacast VOD and live streaming. Dacast documents analytics export via the API, but
-    exact endpoint paths and query parameters are not published; the operations here
-    are honestly modeled and flagged as unconfirmed.
+  - type: OpenAPI
+    url: openapi/dacast-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.dacast.com/docs/make-your-first-api-call
+  - type: APIReference
+    url: https://docs.dacast.com/docs/vod-upload
+  - type: APIReference
+    url: https://docs.dacast.com/docs/create-live-streams-channels
+  - type: APIReference
+    url: https://docs.dacast.com/docs/playlists
+  - type: Documentation
+    url: https://www.dacast.com/support/knowledgebase/new-analytics-dashboard/
+- aid: dacast:dacast-live-channels-api
+  name: Dacast Live Channels API
+  description: Live streaming channels and simulcast.
+  humanURL: https://docs.dacast.com/docs/vod-upload
+  baseURL: https://developer.dacast.com/v2
+  tags:
+  - Live Channels
+  properties:
+  - type: OpenAPI
+    url: openapi/dacast-live-channels-api-openapi.yml
+  - type: Documentation
+    url: https://docs.dacast.com/docs/make-your-first-api-call
+  - type: APIReference
+    url: https://docs.dacast.com/docs/vod-upload
+  - type: APIReference
+    url: https://docs.dacast.com/docs/create-live-streams-channels
+  - type: APIReference
+    url: https://docs.dacast.com/docs/playlists
+  - type: Documentation
+    url: https://www.dacast.com/support/knowledgebase/new-analytics-dashboard/
+- aid: dacast:dacast-playlists-api
+  name: Dacast Playlists API
+  description: Ordered collections of VOD and live content.
+  humanURL: https://docs.dacast.com/docs/vod-upload
+  baseURL: https://developer.dacast.com/v2
+  tags:
+  - Playlists
+  properties:
+  - type: OpenAPI
+    url: openapi/dacast-playlists-api-openapi.yml
+  - type: Documentation
+    url: https://docs.dacast.com/docs/make-your-first-api-call
+  - type: APIReference
+    url: https://docs.dacast.com/docs/vod-upload
+  - type: APIReference
+    url: https://docs.dacast.com/docs/create-live-streams-channels
+  - type: APIReference
+    url: https://docs.dacast.com/docs/playlists
+  - type: Documentation
+    url: https://www.dacast.com/support/knowledgebase/new-analytics-dashboard/
+- aid: dacast:dacast-vod-api
+  name: Dacast VOD API
+  description: Video on demand upload and management.
+  humanURL: https://docs.dacast.com/docs/vod-upload
+  baseURL: https://developer.dacast.com/v2
+  tags:
+  - VOD
+  properties:
+  - type: OpenAPI
+    url: openapi/dacast-vod-api-openapi.yml
+  - type: Documentation
+    url: https://docs.dacast.com/docs/make-your-first-api-call
+  - type: APIReference
+    url: https://docs.dacast.com/docs/vod-upload
+  - type: APIReference
+    url: https://docs.dacast.com/docs/create-live-streams-channels
+  - type: APIReference
+    url: https://docs.dacast.com/docs/playlists
+  - type: Documentation
+    url: https://www.dacast.com/support/knowledgebase/new-analytics-dashboard/
 common:
 - type: AgenticAccess
   url: agentic-access/dacast-agentic-access.yml
