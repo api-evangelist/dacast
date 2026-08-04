@@ -1,0 +1,407 @@
+openapi: 3.0.1
+info:
+  title: Dacast API
+  description: >-
+    RESTful JSON API for the Dacast live streaming and video hosting (OTT)
+    platform. Covers live channels, video on demand (VOD), playlists, and
+    viewer analytics. Authentication uses an X-Api-Key request header. API
+    access is gated to Scale and Custom plans (trial accounts can request
+    temporary access from Dacast sales).
+
+    Grounding note: the base host (https://developer.dacast.com), the v2
+    versioning, X-Api-Key auth, and the operations POST /v2/vod,
+    POST /v2/channel, POST /v2/playlist, and GET /v2/playlist/{playlistId}
+    are confirmed from Dacast's public developer docs (docs.dacast.com).
+    Operations marked "x-modeled: true" are honestly modeled REST shapes for
+    capabilities Dacast documents but whose exact paths, verbs, or parameters
+    are not published; verify against the developer portal before use.
+  version: '2.0'
+  contact:
+    name: Dacast Support
+    url: https://www.dacast.com/support/
+  termsOfService: https://www.dacast.com/terms-conditions/
+servers:
+  - url: https://developer.dacast.com
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: VOD
+    description: Video on demand upload and management.
+  - name: Live Channels
+    description: Live streaming channels and simulcast.
+  - name: Playlists
+    description: Ordered collections of VOD and live content.
+  - name: Analytics
+    description: Viewer analytics and reporting.
+paths:
+  /v2/vod:
+    post:
+      operationId: createVodUpload
+      tags:
+        - VOD
+      summary: Create a VOD upload signature
+      description: >-
+        Generate a signed upload target that allows pushing a source file to
+        Dacast storage. Confirmed from the VOD Upload guide.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Upload signature created.
+    get:
+      operationId: listVideos
+      tags:
+        - VOD
+      summary: List videos
+      description: List VOD assets in the account.
+      x-modeled: true
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A page of videos.
+  /v2/vod/{videoId}:
+    get:
+      operationId: lookupVideo
+      tags:
+        - VOD
+      summary: Look up a video
+      description: Retrieve metadata for a single VOD asset.
+      x-modeled: true
+      parameters:
+        - name: videoId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Video metadata.
+    delete:
+      operationId: deleteVideoSource
+      tags:
+        - VOD
+      summary: Delete a video source
+      description: Delete a VOD asset or its source file.
+      x-modeled: true
+      parameters:
+        - name: videoId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted.
+  /v2/vod/{videoId}/rendition/{renditionId}:
+    delete:
+      operationId: deleteRendition
+      tags:
+        - VOD
+      summary: Delete a rendition
+      description: Delete a single encoded rendition of a VOD asset.
+      x-modeled: true
+      parameters:
+        - name: videoId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: renditionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted.
+  /v2/vod/upload/multipart:
+    post:
+      operationId: initiateMultipartUpload
+      tags:
+        - VOD
+      summary: Initiate a multi-part upload
+      description: >-
+        Begin a multi-part upload for a large VOD source file. Documented as a
+        multi-part flow (initiate, presigned URLs, complete); exact path modeled.
+      x-modeled: true
+      responses:
+        '200':
+          description: Multi-part upload initiated.
+  /v2/channel:
+    post:
+      operationId: createChannel
+      tags:
+        - Live Channels
+      summary: Create a live channel
+      description: >-
+        Create a live streaming channel. Confirmed from "Make Your First API
+        Call" - requires X-Api-Key and X-Format headers and a JSON body with
+        title, description, region, and rendition count.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                region:
+                  type: string
+                renditionCount:
+                  type: integer
+      responses:
+        '200':
+          description: Channel created.
+    get:
+      operationId: listChannels
+      tags:
+        - Live Channels
+      summary: List live channels
+      description: List live streaming channels in the account.
+      x-modeled: true
+      responses:
+        '200':
+          description: A list of channels.
+  /v2/channel/{channelId}:
+    get:
+      operationId: lookupStream
+      tags:
+        - Live Channels
+      summary: Look up a stream
+      description: Retrieve a live channel and its stream configuration.
+      x-modeled: true
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Channel details.
+  /v2/channel/{channelId}/ingest:
+    put:
+      operationId: switchStreamIngest
+      tags:
+        - Live Channels
+      summary: Switch stream ingest
+      description: Switch the ingest configuration for a live channel.
+      x-modeled: true
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ingest switched.
+  /v2/channel/{channelId}/type:
+    put:
+      operationId: changeChannelType
+      tags:
+        - Live Channels
+      summary: Change channel type
+      description: Change the type of a live channel.
+      x-modeled: true
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Channel type changed.
+  /v2/channel/online:
+    get:
+      operationId: listOnlineStreams
+      tags:
+        - Live Channels
+      summary: List online streams
+      description: List channels that are currently live.
+      x-modeled: true
+      responses:
+        '200':
+          description: Online streams.
+  /v2/channel/{channelId}/simulcast:
+    get:
+      operationId: listSimulcastDestinations
+      tags:
+        - Live Channels
+      summary: List simulcast destinations
+      description: List restream/simulcast destinations for a channel.
+      x-modeled: true
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Simulcast destinations.
+    post:
+      operationId: addSimulcastDestination
+      tags:
+        - Live Channels
+      summary: Add a simulcast destination
+      description: Add a restream/simulcast destination to a channel.
+      x-modeled: true
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Destination added.
+  /v2/channel/{channelId}/simulcast/{destinationId}:
+    delete:
+      operationId: deleteSimulcastDestination
+      tags:
+        - Live Channels
+      summary: Delete a simulcast destination
+      x-modeled: true
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: destinationId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted.
+  /v2/playlist:
+    post:
+      operationId: createPlaylist
+      tags:
+        - Playlists
+      summary: Create a playlist
+      description: >-
+        Create a playlist with title and description. Confirmed from the
+        Playlists guide.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Playlist created.
+  /v2/playlist/{playlistId}:
+    get:
+      operationId: getPlaylist
+      tags:
+        - Playlists
+      summary: Get a playlist
+      description: >-
+        Retrieve a playlist and its contents. Confirmed from the Playlists
+        guide.
+      parameters:
+        - name: playlistId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Playlist details.
+    put:
+      operationId: setPlaylistContent
+      tags:
+        - Playlists
+      summary: Set playlist content
+      description: >-
+        Replace-in-place update of a playlist's ordered contents. The full
+        content array (VOD and live channel items) must be submitted. Documented
+        behavior; exact verb/path modeled.
+      x-modeled: true
+      parameters:
+        - name: playlistId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contents:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        '200':
+          description: Playlist content set.
+  /v2/analytics:
+    get:
+      operationId: getAnalytics
+      tags:
+        - Analytics
+      summary: Read viewer analytics
+      description: >-
+        Read raw viewer analytics (views, watch time, bandwidth, geography) for
+        VOD and live content over a time range. Dacast documents analytics
+        export via the API but does not publish the exact endpoint path or query
+        parameters; this operation is modeled.
+      x-modeled: true
+      parameters:
+        - name: contentId
+          in: query
+          schema:
+            type: string
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Analytics data.
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key

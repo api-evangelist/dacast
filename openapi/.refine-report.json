@@ -1,0 +1,20 @@
+{
+  "provider": "dacast",
+  "sources": [
+    "dacast-analytics-api-openapi.yml",
+    "dacast-live-channels-api-openapi.yml",
+    "dacast-playlists-api-openapi.yml",
+    "dacast-vod-api-openapi.yml"
+  ],
+  "outputs": [
+    "dacast-analytics-api-openapi.yml",
+    "dacast-live-channels-api-openapi.yml",
+    "dacast-playlists-api-openapi.yml",
+    "dacast-vod-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
