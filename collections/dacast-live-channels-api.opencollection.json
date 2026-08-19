@@ -1,0 +1,176 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dacast Analytics Live Channels API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Live Channels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List live channels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://developer.dacast.com/v2/channel"
+          },
+          "docs": "List live streaming channels in the account."
+        },
+        {
+          "info": {
+            "name": "Create a live channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://developer.dacast.com/v2/channel",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a live streaming channel. Confirmed from \"Make Your First API Call\" - requires X-Api-Key and X-Format headers and a JSON body with title, description, region, and rendition count."
+        },
+        {
+          "info": {
+            "name": "Look up a stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://developer.dacast.com/v2/channel/:channelId",
+            "params": [
+              {
+                "name": "channelId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a live channel and its stream configuration."
+        },
+        {
+          "info": {
+            "name": "Switch stream ingest",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://developer.dacast.com/v2/channel/:channelId/ingest",
+            "params": [
+              {
+                "name": "channelId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Switch the ingest configuration for a live channel."
+        },
+        {
+          "info": {
+            "name": "Change channel type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://developer.dacast.com/v2/channel/:channelId/type",
+            "params": [
+              {
+                "name": "channelId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Change the type of a live channel."
+        },
+        {
+          "info": {
+            "name": "List online streams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://developer.dacast.com/v2/channel/online"
+          },
+          "docs": "List channels that are currently live."
+        },
+        {
+          "info": {
+            "name": "List simulcast destinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://developer.dacast.com/v2/channel/:channelId/simulcast",
+            "params": [
+              {
+                "name": "channelId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List restream/simulcast destinations for a channel."
+        },
+        {
+          "info": {
+            "name": "Add a simulcast destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://developer.dacast.com/v2/channel/:channelId/simulcast",
+            "params": [
+              {
+                "name": "channelId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Add a restream/simulcast destination to a channel."
+        },
+        {
+          "info": {
+            "name": "Delete a simulcast destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://developer.dacast.com/v2/channel/:channelId/simulcast/:destinationId",
+            "params": [
+              {
+                "name": "channelId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "destinationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a simulcast destination"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

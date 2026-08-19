@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dacast Analytics VOD API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "VOD",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://developer.dacast.com/v2/vod",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List VOD assets in the account."
+        },
+        {
+          "info": {
+            "name": "Create a VOD upload signature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://developer.dacast.com/v2/vod",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a signed upload target that allows pushing a source file to Dacast storage. Confirmed from the VOD Upload guide."
+        },
+        {
+          "info": {
+            "name": "Look up a video",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://developer.dacast.com/v2/vod/:videoId",
+            "params": [
+              {
+                "name": "videoId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve metadata for a single VOD asset."
+        },
+        {
+          "info": {
+            "name": "Delete a video source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://developer.dacast.com/v2/vod/:videoId",
+            "params": [
+              {
+                "name": "videoId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a VOD asset or its source file."
+        },
+        {
+          "info": {
+            "name": "Delete a rendition",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://developer.dacast.com/v2/vod/:videoId/rendition/:renditionId",
+            "params": [
+              {
+                "name": "videoId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "renditionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a single encoded rendition of a VOD asset."
+        },
+        {
+          "info": {
+            "name": "Initiate a multi-part upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://developer.dacast.com/v2/vod/upload/multipart"
+          },
+          "docs": "Begin a multi-part upload for a large VOD source file. Documented as a multi-part flow (initiate, presigned URLs, complete); exact path modeled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dacast Analytics Playlists API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Playlists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a playlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://developer.dacast.com/v2/playlist",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a playlist with title and description. Confirmed from the Playlists guide."
+        },
+        {
+          "info": {
+            "name": "Get a playlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://developer.dacast.com/v2/playlist/:playlistId",
+            "params": [
+              {
+                "name": "playlistId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a playlist and its contents. Confirmed from the Playlists guide."
+        },
+        {
+          "info": {
+            "name": "Set playlist content",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://developer.dacast.com/v2/playlist/:playlistId",
+            "params": [
+              {
+                "name": "playlistId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace-in-place update of a playlist's ordered contents. The full content array (VOD and live channel items) must be submitted. Documented behavior; exact verb/path modeled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

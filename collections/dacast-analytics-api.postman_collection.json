@@ -1,0 +1,148 @@
+{
+  "item": [
+    {
+      "id": "912bb3a3-b0ef-42ce-8537-735023ca974d",
+      "name": "Analytics",
+      "description": {
+        "content": "Viewer analytics and reporting.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "063e2a2a-f96a-472f-b56c-39bab3791e02",
+          "name": "Read viewer analytics",
+          "request": {
+            "name": "Read viewer analytics",
+            "description": {
+              "content": "Read raw viewer analytics (views, watch time, bandwidth, geography) for VOD and live content over a time range. Dacast documents analytics export via the API but does not publish the exact endpoint path or query parameters; this operation is modeled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "contentId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<date>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "70247281-1915-45ac-9883-9f19874cf5e8",
+              "name": "Analytics data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "contentId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://developer.dacast.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0c49fadb-5207-42c8-b34e-f52eb05294ee",
+    "name": "Dacast Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful JSON API for the Dacast live streaming and video hosting (OTT) platform. Covers live channels, video on demand (VOD), playlists, and viewer analytics. Authentication uses an X-Api-Key request header. API access is gated to Scale and Custom plans (trial accounts can request temporary access from Dacast sales).\nGrounding note: the base host (https://developer.dacast.com), the v2 versioning, X-Api-Key auth, and the operations POST /v2/vod, POST /v2/channel, POST /v2/playlist, and GET /v2/playlist/{playlistId} are confirmed from Dacast's public developer docs (docs.dacast.com). Operations marked \"x-modeled: true\" are honestly modeled REST shapes for capabilities Dacast documents but whose exact paths, verbs, or parameters are not published; verify against the developer portal before use.\n\nContact Support:\n Name: Dacast Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dacast Analytics API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read viewer analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://developer.dacast.com/v2/analytics",
+            "params": [
+              {
+                "name": "contentId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Read raw viewer analytics (views, watch time, bandwidth, geography) for VOD and live content over a time range. Dacast documents analytics export via the API but does not publish the exact endpoint path or query parameters; this operation is modeled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

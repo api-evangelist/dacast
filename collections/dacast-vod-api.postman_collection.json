@@ -1,0 +1,588 @@
+{
+  "item": [
+    {
+      "id": "528046d4-9732-409f-ac1f-75caa5f4e882",
+      "name": "VOD",
+      "description": {
+        "content": "Video on demand upload and management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dbf0945d-b1a2-4bf2-bd70-a69ede119deb",
+          "name": "Create a VOD upload signature",
+          "request": {
+            "name": "Create a VOD upload signature",
+            "description": {
+              "content": "Generate a signed upload target that allows pushing a source file to Dacast storage. Confirmed from the VOD Upload guide.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "vod"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b27dff46-496b-4d39-b27a-fe114c441696",
+              "name": "Upload signature created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "vod"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43edbea8-198b-42aa-984e-3302e02ef933",
+          "name": "List videos",
+          "request": {
+            "name": "List videos",
+            "description": {
+              "content": "List VOD assets in the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "vod"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "perPage",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1843bfd7-2942-49c2-9dfe-2b57fbae5bb0",
+              "name": "A page of videos.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "vod"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "perPage",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf9bec5b-684e-4d3f-a64e-6e55c0d0be84",
+          "name": "Look up a video",
+          "request": {
+            "name": "Look up a video",
+            "description": {
+              "content": "Retrieve metadata for a single VOD asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "vod",
+                ":videoId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "videoId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d5bd508-72d0-494a-9d0a-aa816c56236e",
+              "name": "Video metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "vod",
+                    ":videoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "videoId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad1ca27f-f346-4cd2-bc23-fa9a3a4902ee",
+          "name": "Delete a video source",
+          "request": {
+            "name": "Delete a video source",
+            "description": {
+              "content": "Delete a VOD asset or its source file.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "vod",
+                ":videoId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "videoId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8fe9768-ef38-4868-994b-6f2833be39f2",
+              "name": "Deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "vod",
+                    ":videoId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "videoId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd1d41ef-c55b-4c78-9a0f-4ce106c39abe",
+          "name": "Delete a rendition",
+          "request": {
+            "name": "Delete a rendition",
+            "description": {
+              "content": "Delete a single encoded rendition of a VOD asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "vod",
+                ":videoId",
+                "rendition",
+                ":renditionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "videoId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "renditionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47c656c0-35d9-4f4c-91c3-d752e4afc4ef",
+              "name": "Deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "vod",
+                    ":videoId",
+                    "rendition",
+                    ":renditionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "videoId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "renditionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a1a1329-ef32-491d-8c1c-634531a89786",
+          "name": "Initiate a multi-part upload",
+          "request": {
+            "name": "Initiate a multi-part upload",
+            "description": {
+              "content": "Begin a multi-part upload for a large VOD source file. Documented as a multi-part flow (initiate, presigned URLs, complete); exact path modeled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "vod",
+                "upload",
+                "multipart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b1d6f44-1116-42c2-80f3-30086156906e",
+              "name": "Multi-part upload initiated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "vod",
+                    "upload",
+                    "multipart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://developer.dacast.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b00f82af-78a5-47c1-bc51-0dd6a1ecede8",
+    "name": "Dacast Analytics VOD API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful JSON API for the Dacast live streaming and video hosting (OTT) platform. Covers live channels, video on demand (VOD), playlists, and viewer analytics. Authentication uses an X-Api-Key request header. API access is gated to Scale and Custom plans (trial accounts can request temporary access from Dacast sales).\nGrounding note: the base host (https://developer.dacast.com), the v2 versioning, X-Api-Key auth, and the operations POST /v2/vod, POST /v2/channel, POST /v2/playlist, and GET /v2/playlist/{playlistId} are confirmed from Dacast's public developer docs (docs.dacast.com). Operations marked \"x-modeled: true\" are honestly modeled REST shapes for capabilities Dacast documents but whose exact paths, verbs, or parameters are not published; verify against the developer portal before use.\n\nContact Support:\n Name: Dacast Support",
+      "type": "text/plain"
+    }
+  }
+}
