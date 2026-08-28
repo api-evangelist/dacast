@@ -12,6 +12,18 @@ description: Dacast is a unified live streaming and video hosting (OTT) platform
   from sales), so the endpoints below are grounded in Dacast's public developer docs
   but several exact paths beyond the confirmed /v2/channel, /v2/vod, and /v2/playlist
   are honestly modeled.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
