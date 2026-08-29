@@ -131,6 +131,9 @@ apis:
   - type: Documentation
     url: https://www.dacast.com/support/knowledgebase/new-analytics-dashboard/
 common:
+- type: CapabilityMap
+  url: capabilities/dacast-capability-edges.yml
+  name: Dacast Business Capability Map
 - type: AgenticAccess
   url: agentic-access/dacast-agentic-access.yml
 - type: DomainSecurity
