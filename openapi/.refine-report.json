@@ -1,10 +1,7 @@
 {
   "provider": "dacast",
   "sources": [
-    "dacast-analytics-api-openapi.yml",
-    "dacast-live-channels-api-openapi.yml",
-    "dacast-playlists-api-openapi.yml",
-    "dacast-vod-api-openapi.yml"
+    "_original/dacast-openapi.yml"
   ],
   "outputs": [
     "dacast-analytics-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "dacast-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "dacast-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dacast-live-channels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dacast-playlists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dacast-vod-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
