@@ -51,7 +51,7 @@ tags:
 - Media
 - Analytics
 created: '2026-07-11'
-modified: '2026-07-11'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: dacast:dacast-analytics-api
@@ -135,6 +135,10 @@ apis:
   - type: Documentation
     url: https://www.dacast.com/support/knowledgebase/new-analytics-dashboard/
 common:
+- url: https://www.dacast.com/category/blog/
+  type: Blog
+- url: https://www.dacast.com/feed/
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/dacast-capability-edges.yml
   name: Dacast Business Capability Map
