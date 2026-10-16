@@ -1,0 +1,21 @@
+{
+  "repo": "dacast",
+  "feeds": [
+    {
+      "source": "https://www.dacast.com/category/blog/",
+      "feed_url": "https://www.dacast.com/category/blog/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://www.dacast.com/feed/",
+      "feed_url": "https://www.dacast.com/feed/",
+      "title": "",
+      "saved": 6,
+      "method": "feed"
+    }
+  ],
+  "post_count": 6,
+  "fetched": "2026-10-10T13:15:00Z"
+}
