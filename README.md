@@ -1,4 +1,4 @@
-# Dacast (dacast)
+# Dacast
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,90 +64,122 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Dacast is a unified live streaming and video hosting (OTT) platform that lets businesses broadcast live channels, host and monetize video on demand (VOD), organize content into playlists, and embed a white-label HTML5 player. Dacast exposes a RESTful JSON API at `https://developer.dacast.com/v2` for programmatically creating live channels, uploading and managing VOD, building playlists, and reading viewer analytics.
+Dacast is a unified live streaming and video hosting (OTT) platform that lets businesses broadcast live channels, host and monetize video on demand (VOD), organize content into playlists, and embed a white-label HTML5 player. Dacast exposes a RESTful JSON API (base https://developer.dacast.com/v2) for programmatically creating live channels, uploading and managing VOD, building playlists, and reading viewer analytics. API requests authenticate with an X-Api-Key header. API access is gated to Scale and Custom plans (trial accounts can request temporary access from sales), so the endpoints below are grounded in Dacast's public developer docs but several exact paths beyond the confirmed /v2/channel, /v2/vod, and /v2/playlist are honestly modeled.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/dacast/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/dacast/refs/heads/main/apis.yml)
+**Areas:** Live Streaming · Video · VOD · OTT · Video Hosting · Media · Analytics
 
-## Access Model (read this first)
+## Dacast on APIs.io
 
-Dacast's API is **plan-gated, not open self-serve**:
+Everything profiled for Dacast is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/dacast/](https://apis.io/providers/dacast/)** — or go straight to one of the APIs or properties below.
 
-- **API access is included only on the Scale plan and Custom (enterprise) plans.** The entry **Starter** and **Event** plans do not include API access.
-- Trial accounts can request **temporary API access from Dacast sales** for evaluation.
-- API keys are generated in the Dacast dashboard under **Settings > Integrations** and passed as an **`X-Api-Key`** request header (some calls also require an `X-Format` header).
+### APIs (4)
 
-Because the full reference sits behind the developer portal, this catalog grounds the confirmed pieces (base host, `v2` versioning, `X-Api-Key` auth, and the operations `POST /v2/vod`, `POST /v2/channel`, `POST /v2/playlist`, `GET /v2/playlist/{playlistId}`) and **honestly models** the remaining documented capabilities. Modeled operations are flagged with `x-modeled: true` in the OpenAPI and listed under `endpointsModeled` in `review.yml`. Verify exact paths against [docs.dacast.com](https://docs.dacast.com) and [docs.dacast.com/llms.txt](https://docs.dacast.com/llms.txt) before use.
+- [Dacast Analytics API](https://apis.io/apis/dacast/dacast-analytics-api/) — Viewer analytics and reporting.
+- [Dacast Live Channels API](https://apis.io/apis/dacast/dacast-live-channels-api/) — Live streaming channels and simulcast.
+- [Dacast Playlists API](https://apis.io/apis/dacast/dacast-playlists-api/) — Ordered collections of VOD and live content.
+- [Dacast VOD API](https://apis.io/apis/dacast/dacast-vod-api/) — Video on demand upload and management.
 
-## Tags
+### Published properties
 
-- Live Streaming
-- Video
-- VOD
-- OTT
-- Video Hosting
-- Media
-- Analytics
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Timestamps
+#### Agentic access (1)
 
-- **Created:** 2026-07-11
-- **Modified:** 2026-07-11
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## APIs
+- [Dacast Agentic Access](https://apis.io/agentic-access/dacast/dacast-agentic-access/)
 
-### Dacast VOD API
+#### Collections (4)
 
-Create, list, look up, and delete video-on-demand assets, and upload source files. Uploads work by requesting a signed upload target (`POST /v2/vod`) and pushing the file to Dacast storage, with multi-part upload and bulk upload flows for large libraries.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.dacast.com/docs/vod-upload](https://docs.dacast.com/docs/vod-upload)
-- **Base URL:** `https://developer.dacast.com/v2`
+- [Dacast Analytics API](https://apis.io/collections/dacast/open-dacast-analytics-api/)
+- [Dacast Analytics Live Channels API](https://apis.io/collections/dacast/open-dacast-live-channels-api/)
+- [Dacast Analytics Playlists API](https://apis.io/collections/dacast/open-dacast-playlists-api/)
+- [Dacast Analytics VOD API](https://apis.io/collections/dacast/open-dacast-vod-api/)
 
-### Dacast Live Channels API
+#### Security (2)
 
-Create and manage live streaming channels (`POST /v2/channel`), look up a stream, list online streams, switch stream ingest, change channel type, and manage simulcast destinations that restream to third-party targets. Live ingest is RTMP/SRT push, not a Dacast-hosted API transport.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.dacast.com/docs/create-live-streams-channels](https://docs.dacast.com/docs/create-live-streams-channels)
-- **Base URL:** `https://developer.dacast.com/v2`
+- [Dacast Authentication](https://apis.io/security/dacast/dacast-authentication/)
+- [Dacast Domain Security](https://apis.io/security/dacast/dacast-domain-security/)
 
-### Dacast Playlists API
+#### Plans and pricing (1)
 
-Create playlists (`POST /v2/playlist`), retrieve a playlist (`GET /v2/playlist/{playlistId}`), and set playlist contents by mixing VOD and live channel items. Playlist updates are a replace-in-place operation - the full content array is submitted on each change.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://docs.dacast.com/docs/playlists](https://docs.dacast.com/docs/playlists)
-- **Base URL:** `https://developer.dacast.com/v2`
+- [Dacast Plans Pricing](https://apis.io/plans/dacast/dacast-plans-pricing/)
 
-### Dacast Analytics API
+#### Rate limits (1)
 
-Read raw viewer analytics - views, watch time, bandwidth, and geography per content item and per account - so you can build custom reporting on top of Dacast VOD and live streaming. Dacast documents analytics export via the API, but exact endpoint paths and query parameters are not published; the analytics operations here are honestly modeled.
+Published request limits.
 
-- **Human URL:** [https://www.dacast.com/support/knowledgebase/walkthrough-to-per-content-video-analytics-on-dacast/](https://www.dacast.com/support/knowledgebase/walkthrough-to-per-content-video-analytics-on-dacast/)
-- **Base URL:** `https://developer.dacast.com/v2`
+- [Dacast Rate Limits](https://apis.io/rate-limits/dacast/dacast-rate-limits/)
 
-## Pricing (summary)
+#### FinOps (1)
 
-| Plan | Price (billed annually) | Bandwidth | Storage | API access |
-|------|------------------------|-----------|---------|------------|
-| Starter | $39/mo ($468/yr) | 2.4 TB/yr | 500 GB | No |
-| Event | $63/mo ($750/yr) | 6 TB upfront | 250 GB | No |
-| Scale | $165/mo ($1,980/yr); ~$250/mo month-to-month | 24 TB/yr | 2,000 GB | Yes |
-| Custom | Contact sales | Custom | Custom | Yes |
+What the API costs to run, by operation.
 
-Overages: bandwidth ~$0.30/GB (pre-paid as low as $0.09/GB), storage ~$0.15/GB/month. All plans include unlimited concurrent viewers. See [plans/dacast-plans-pricing.yml](plans/dacast-plans-pricing.yml).
+- [Dacast Finops](https://apis.io/finops/dacast/dacast-finops/)
 
-## WebSocket Review
+## Where to find this API
 
-Dacast does **not** expose a documented public WebSocket API. Its public developer API is request/response REST over HTTPS, and its real-time video is carried by RTMP/SRT ingest and HLS/DASH delivery - media streaming transports, not a WebSocket message API. No AsyncAPI document was authored. See [review.yml](review.yml).
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/dacast)
 - [Website](https://www.dacast.com)
 - [Documentation](https://docs.dacast.com)
-- [Plans](plans/dacast-plans-pricing.yml)
-- [Rate Limits](rate-limits/dacast-rate-limits.yml)
-- [Fin Ops](finops/dacast-finops.yml)
+- [Blog](https://www.dacast.com/category/blog/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 25.4** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 47.8 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 27.4 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/dacast/](https://apis.io/providers/dacast/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Dacast: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/dacast/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
